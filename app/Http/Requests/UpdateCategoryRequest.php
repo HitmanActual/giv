@@ -13,7 +13,7 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,19 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             //
+            'parent_id'=>'numeric',
+            'order'=>'numeric',
+            'name'=>'string|max:255',
+            'slug'=>'unique:categories|string|max:255',
+            'description'=>'string',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'slug.unique' => 'The slug must be unique',
+
         ];
     }
 }

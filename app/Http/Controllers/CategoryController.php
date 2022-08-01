@@ -33,7 +33,7 @@ class CategoryController extends Controller
         //
 
 
-        return $this->successResponse($this->categoryRepository->all(),Response::HTTP_OK);
+        return $this->successResponse($this->categoryRepository->all(), Response::HTTP_OK);
     }
 
 
@@ -43,33 +43,21 @@ class CategoryController extends Controller
      * @param \App\Http\Requests\StoreCategoryRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request): object
     {
         //
-        $rules = [
-            'parent_id'=>'numeric',
-            'order'=>'numeric',
-            'name'=>'required|string|max:255',
-            'slug'=>'unique:categories|string|max:255',
-            'description'=>'string',
+
+
+        $category = [
+
+            'parent_id' => $request->parent_id,
+            'order' => $request->order,
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'description' => $request->description,
         ];
 
-
-        $messages = [
-            'slug.unique' => 'The slug must be unique',
-
-        ];
-
-
-        $validator = Validator::make($request->all(),$rules,$messages);
-        $validated = $validator->validated();
-
-
-        if ($validator->fails()) {
-            return $this->errorResponse($validator->errors(), 409);
-        }
-
-        return $this->successResponse($this->categoryRepository->create($validated),Response::HTTP_CREATED);
+        return $this->successResponse($this->categoryRepository->create($category), Response::HTTP_CREATED);
 
     }
 
@@ -79,11 +67,11 @@ class CategoryController extends Controller
      * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
         //
+        return $this->successResponse($this->categoryRepository->show($id), Response::HTTP_OK);
     }
-
 
 
     /**
@@ -93,9 +81,13 @@ class CategoryController extends Controller
      * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update($id,UpdateCategoryRequest $request)
     {
-        //
+
+
+        return $this->successResponse($this->categoryRepository->modify($id,$request->all(), Response::HTTP_OK));
+
+
     }
 
     /**
@@ -104,8 +96,9 @@ class CategoryController extends Controller
      * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($category)
     {
         //
+        return $this->successResponse($this->categoryRepository->remove($category), Response::HTTP_OK);
     }
 }
