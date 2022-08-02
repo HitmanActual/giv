@@ -48,7 +48,6 @@ class CategoryController extends Controller
     {
         //
 
-
         $category = Category::create([
 
             'parent_id' => $request->parent_id,
@@ -59,19 +58,23 @@ class CategoryController extends Controller
         ]);
 
 
+            foreach ($request->photos as $photo) {
 
-        $photos = explode(",",$request->get('photos'));
-        foreach($photos as $photo){
+            $fileName = $photo->getClientOriginalExtension();
+
+            $newName = md5(microtime()) . time() . '.' . $fileName;
+            $photo->storeAs('/public/photos', $newName);
+
 
             Photo::create([
-                'imageable_id'=>$category->id,
-                'imageable_type'=>'App\Models\Category',
-                'filename'=>$photo
+                'imageable_id' => $category->id,
+                'imageable_type' => 'App\Models\Category',
+                'filename' => 'photos/' . $newName,
             ]);
         }
 
 
-        return $this->successResponse([$category,$photos], Response::HTTP_CREATED);
+        return $this->successResponse($category, Response::HTTP_CREATED);
 
     }
 
@@ -95,11 +98,11 @@ class CategoryController extends Controller
      * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function update($id,UpdateCategoryRequest $request)
+    public function update($id, UpdateCategoryRequest $request)
     {
 
 
-        return $this->successResponse($this->categoryRepository->modify($id,$request->all(), Response::HTTP_OK));
+        return $this->successResponse($this->categoryRepository->modify($id, $request->all(), Response::HTTP_OK));
 
 
     }
