@@ -6,6 +6,7 @@ use App\IRepository\ICategoryRepository;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Models\Photo;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -43,21 +44,34 @@ class CategoryController extends Controller
      * @param \App\Http\Requests\StoreCategoryRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCategoryRequest $request): object
+    public function store(StoreCategoryRequest $request)
     {
         //
 
 
-        $category = [
+        $category = Category::create([
 
             'parent_id' => $request->parent_id,
             'order' => $request->order,
             'name' => $request->name,
             'slug' => $request->slug,
             'description' => $request->description,
-        ];
+        ]);
 
-        return $this->successResponse($this->categoryRepository->create($category), Response::HTTP_CREATED);
+
+
+        $photos = explode(",",$request->get('photos'));
+        foreach($photos as $photo){
+
+            Photo::create([
+                'imageable_id'=>$category->id,
+                'imageable_type'=>'App\Models\Category',
+                'filename'=>$photo
+            ]);
+        }
+
+
+        return $this->successResponse([$category,$photos], Response::HTTP_CREATED);
 
     }
 
