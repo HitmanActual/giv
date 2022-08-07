@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\IRepository\ICategoryRepository;
 use App\Models\Category;
+use App\Models\Photo;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 
@@ -27,6 +28,7 @@ class CategoryRepository implements ICategoryRepository
 
 
     }
+
 
     public function show($id)
     {

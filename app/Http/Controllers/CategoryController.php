@@ -58,7 +58,8 @@ class CategoryController extends Controller
         ]);
 
 
-            foreach ($request->photos as $photo) {
+
+        foreach ($request->photos as $photo) {
 
             $fileName = $photo->getClientOriginalExtension();
 

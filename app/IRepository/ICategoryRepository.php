@@ -9,6 +9,8 @@ interface ICategoryRepository
 
     public function create($sttr);
 
+
+
     public function show($id);
 
     public function modify($id,$data);
