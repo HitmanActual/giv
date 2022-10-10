@@ -14,6 +14,7 @@ class ShopController extends Controller
 
     public function __construct(){
         $this->service = new ShopService();
+        $this->middleware("auth:api")->except('index');
     }
     /**
      * Display a listing of the resource.

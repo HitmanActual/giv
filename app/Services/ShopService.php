@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\Photo;
 use App\Models\Shop;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 
 class ShopService
@@ -18,11 +20,28 @@ class ShopService
 
     public function store($request){
         $shop = Shop::create([
-            'user_id'=>auth()->user()->id,
-            'description'=>$request->desceiption,
+            'user_id'=>Auth::id(),
+            'description'=>$request->description,
             'name'=>$request->name,
             'rating'=>$request->rating,
         ]);
+
+
+        foreach ($request->photos as $photo) {
+
+            $fileName = $photo->getClientOriginalExtension();
+
+            $newName = md5(microtime()) . time() . '.' . $fileName;
+            $photo->storeAs('/public/photos/shop', $newName);
+
+
+            Photo::create([
+                'imageable_id' => $shop->id,
+                'imageable_type' => 'App\Models\Shop',
+                'filename' => 'photos/' . $newName,
+            ]);
+        }
+
 
         if($shop){
             return $this->successResponse($shop,Response::HTTP_CREATED);

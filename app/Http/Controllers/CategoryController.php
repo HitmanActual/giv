@@ -64,7 +64,7 @@ class CategoryController extends Controller
             $fileName = $photo->getClientOriginalExtension();
 
             $newName = md5(microtime()) . time() . '.' . $fileName;
-            $photo->storeAs('/public/photos', $newName);
+            $photo->storeAs('/public/photos/category', $newName);
 
 
             Photo::create([

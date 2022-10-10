@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->foreignId('user_id');
-            $table->decimal('rating',2,2)->nullable();
+            $table->decimal('rating',4,1)->nullable();
             $table->timestamps();
         });
     }

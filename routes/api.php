@@ -46,3 +46,13 @@ Route::group(['prefix'=>'shops'],function(){
     Route::patch('/{id}',[ShopController::class,'update']);
     Route::delete('/{id}',[ShopController::class,'destroy']);
 });
+
+
+Route::group(['prefix'=>'products'],function(){
+    Route::get('/',[ShopController::class,'index']);
+    Route::post('/',[ShopController::class,'store']);
+    Route::get('/{id}',[ShopController::class,'show']);
+    Route::patch('/{id}',[ShopController::class,'update']);
+    Route::delete('/{id}',[ShopController::class,'destroy']);
+});
+
