@@ -27,17 +27,7 @@ class ProductController extends Controller
     {
         //
 
-        return $this->index();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->service->index();
     }
 
     /**
@@ -49,7 +39,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         //
-        return $this->store($request);
+        return $this->service->store($request);
     }
 
     /**
@@ -58,9 +48,10 @@ class ProductController extends Controller
      * @param \App\Models\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($product)
     {
         //
+        return $this->service->show($product);
     }
 
     /**

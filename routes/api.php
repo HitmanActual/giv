@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -49,10 +50,10 @@ Route::group(['prefix'=>'shops'],function(){
 
 
 Route::group(['prefix'=>'products'],function(){
-    Route::get('/',[ShopController::class,'index']);
-    Route::post('/',[ShopController::class,'store']);
-    Route::get('/{id}',[ShopController::class,'show']);
-    Route::patch('/{id}',[ShopController::class,'update']);
-    Route::delete('/{id}',[ShopController::class,'destroy']);
+    Route::get('/',[ProductController::class,'index']);
+    Route::post('/',[ProductController::class,'store']);
+    Route::get('/{id}',[ProductController::class,'show']);
+    Route::patch('/{id}',[ProductController::class,'update']);
+    Route::delete('/{id}',[ProductController::class,'destroy']);
 });
 

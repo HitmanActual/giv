@@ -21,5 +21,9 @@ class Shop extends Model
         return $this->morphMany('App\Models\Photo','imageable');
     }
 
+    public function product(){
+        return $this->hasMany(Product::class);
+    }
+
 
 }
