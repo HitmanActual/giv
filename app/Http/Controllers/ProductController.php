@@ -15,7 +15,7 @@ class ProductController extends Controller
     {
 
         $this->service = new ProductService();
-        $this->middleware("auth:api")->except('index');
+        $this->middleware("auth:api")->except(['index','show']);
     }
 
     /**
