@@ -13,7 +13,7 @@ class StoreProductAttributeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,11 @@ class StoreProductAttributeRequest extends FormRequest
     {
         return [
             //
+            'attribute_id'=>'required',
+            'value_id'=>'required',
+            'price'=>'required',
+
         ];
     }
+
 }
