@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\ValueController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -65,5 +66,14 @@ Route::group(['prefix'=>'attributes'],function(){
     Route::get('/{id}',[AttributeController::class,'show']);
     Route::patch('/{id}',[AttributeController::class,'update']);
     Route::delete('/{id}',[AttributeController::class,'destroy']);
+});
+
+
+Route::group(['prefix'=>'values'],function(){
+    Route::get('/',[ValueController::class,'index']);
+    Route::post('/',[ValueController::class,'store']);
+    Route::get('/{id}',[ValueController::class,'show']);
+    Route::patch('/{id}',[ValueController::class,'update']);
+    Route::delete('/{id}',[ValueController::class,'destroy']);
 });
 
