@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
@@ -55,5 +56,14 @@ Route::group(['prefix'=>'products'],function(){
     Route::get('/{id}',[ProductController::class,'show']);
     Route::patch('/{id}',[ProductController::class,'update']);
     Route::delete('/{id}',[ProductController::class,'destroy']);
+});
+
+
+Route::group(['prefix'=>'attributes'],function(){
+    Route::get('/',[AttributeController::class,'index']);
+    Route::post('/',[AttributeController::class,'store']);
+    Route::get('/{id}',[AttributeController::class,'show']);
+    Route::patch('/{id}',[AttributeController::class,'update']);
+    Route::delete('/{id}',[AttributeController::class,'destroy']);
 });
 

@@ -5,9 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Attribute;
 use App\Http\Requests\StoreAttributeRequest;
 use App\Http\Requests\UpdateAttributeRequest;
+use App\Services\AttributeService;
 
 class AttributeController extends Controller
 {
+    public $service;
+
+    public function __construct()
+    {
+
+        $this->service = new AttributeService();
+        $this->middleware("auth:api")->except(['index','show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,17 +26,10 @@ class AttributeController extends Controller
     public function index()
     {
         //
+        return $this->service->index();
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -37,6 +40,7 @@ class AttributeController extends Controller
     public function store(StoreAttributeRequest $request)
     {
         //
+        return $this->service->store($request);
     }
 
     /**
@@ -50,16 +54,7 @@ class AttributeController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Attribute  $attribute
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Attribute $attribute)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
